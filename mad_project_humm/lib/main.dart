@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'loading.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,6 +22,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: './loading',
+      routes: {
+        './loading': (context) => LoadingScreen(),
+      },
     );
   }
 }
