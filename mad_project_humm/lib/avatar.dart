@@ -74,7 +74,7 @@ class AvatarWidget extends StatelessWidget {
                     height: 18.0,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.blue,
+                      color: Colors.blueAccent,
                       border: Border.all(color: Colors.white),
                     ),
                     child: Icon(Icons.add, size: 16.0, color: Colors.white),

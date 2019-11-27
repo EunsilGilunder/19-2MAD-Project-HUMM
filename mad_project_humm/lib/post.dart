@@ -227,7 +227,7 @@ class PhotoCarouselIndicator extends StatelessWidget {
           height: isActive ? 7.5 : 6.0,
           width: isActive ? 7.5 : 6.0,
           decoration: BoxDecoration(
-            color: isActive ? Colors.blue : Colors.grey,
+            color: isActive ? Colors.blueAccent : Colors.grey,
             borderRadius: BorderRadius.circular(4.0),
           ),
         ),
@@ -291,7 +291,7 @@ class _AddCommentModalState extends State<AddCommentModal> {
         FlatButton(
           child: Opacity(
             opacity: _canPost ? 1.0 : 0.4,
-            child: Text('Post', style: TextStyle(color: Colors.blue)),
+            child: Text('Post', style: TextStyle(color: Colors.blueAccent)),
           ),
           onPressed:
           _canPost ? () => widget.onPost(_textController.text) : null,
