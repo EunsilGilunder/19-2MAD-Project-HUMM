@@ -71,68 +71,10 @@ class _DetailPageState extends State<DetailPage> {
                             )]
                       )
                   ),
-                  Row(
-                      children:<Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Chip(
-
-                            backgroundColor: Colors.white,
-                            label : Text('#커스텀케이크',
-                              style : TextStyle(
-                                  fontSize : 15,
-                                  fontWeight:FontWeight.bold,
-                                  color : Color(0xFF00b3e3)
-                              ),
-                            ),
-                            shape : RoundedRectangleBorder(
-                                borderRadius:BorderRadius.circular(30.0),
-                                side:BorderSide(color:Color(0xFF00b3e3))
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Chip(
-
-                            backgroundColor: Colors.white,
-                            label : Text('#홈베이킹',
-                              style : TextStyle(
-                                  fontSize : 15,
-                                  fontWeight:FontWeight.bold,
-                                  color : Color(0xFF00b3e3)
-                              ),
-                            ),
-                            shape : RoundedRectangleBorder(
-                                borderRadius:BorderRadius.circular(30.0),
-                                side:BorderSide(color:Color(0xFF00b3e3))
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Chip(
-
-                            backgroundColor: Colors.white,
-                            label : Text('#디저트',
-                              style : TextStyle(
-                                  fontSize : 15,
-                                  fontWeight:FontWeight.bold,
-                                  color : Color(0xFF00b3e3)
-                              ),
-                            ),
-                            shape : RoundedRectangleBorder(
-                                borderRadius:BorderRadius.circular(30.0),
-                                side:BorderSide(color:Color(0xFF00b3e3))
-                            ),
-                          ),
-                        ),
-                      ]
-                  ),
                 ],
               ),
             ),
-            Divider(),
+
 
             Divider(),
             Row(
@@ -141,6 +83,7 @@ class _DetailPageState extends State<DetailPage> {
                       padding : EdgeInsets.fromLTRB(0,10,15,0),
                       child : Row(
                           children: <Widget>[
+                            VerticalDivider(),
                             SizedBox(
                               width : 200,
                               height : 60,
