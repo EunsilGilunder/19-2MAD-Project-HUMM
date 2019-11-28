@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "685951150781",
+    "firebase_url": "https://project-humm.firebaseio.com",
+    "project_id": "project-humm",
+    "storage_bucket": "project-humm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685951150781:android:a484cac0a86e13d6ce65d4",
+        "android_client_info": {
+          "package_name": "edu.handong.project_humm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685951150781-cv4sc83vn9529t7ig31f0njj0gn8jeef.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.handong.project_humm",
+            "certificate_hash": "19e8c793f8c9b7475ddd5707c67a41e6b2139554"
+          }
+        },
+        {
+          "client_id": "685951150781-q9eoc4u3sgl46094tuu9m8p4ckn8qs7n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.handong.project_humm",
+            "certificate_hash": "a023d239aa136a811e949e7a34fd0c7126995bad"
+          }
+        },
+        {
+          "client_id": "685951150781-ttrknka87ql3df3kotdubh3jcbi38khq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxlpCBdqB78BAhKY5m5ORqQjsBwDEYUZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685951150781-ttrknka87ql3df3kotdubh3jcbi38khq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "685951150781-vsvlj8jgi6su72hjos462hu1mtmr93t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "edu.handong.project-humm"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
