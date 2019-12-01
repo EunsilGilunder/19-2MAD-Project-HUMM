@@ -1,65 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'reserveConfirm.dart';
-import 'loading.dart';
-import 'coopDetail.dart';
 
-import 'home.dart';
-import 'login.dart';
-import 'profile.dart';
+import 'app/coopDetail.dart';
+import 'app/activityDetail.dart';
+import 'app/crossroad.dart';
+import 'app/auth.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  runApp(MyApp());
+}
+
+final routes = {
+  '/coop': (BuildContext context) => CoopDetail(),
+  '/activity': (BuildContext context) => ActivityDetail(),
+};
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Auth',
-      routes: {
-        '/login': (context) => LoginPage(),
-        '/coopDetail': (context) => CoopDetail(),
-        '/profile': (context) => ProfilePage(),
-        '/reserve': (context) => ReserveConfirm(),
-      },
-      onGenerateRoute: _getRoute,
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: Crossroad(),
-    );
-  }
-
-  Route<dynamic> _getRoute(RouteSettings settings) {
-    if (settings.name != '/login') {
-      return null;
-    }
-
-    return MaterialPageRoute<void>(
-      settings: settings,
-      builder: (BuildContext context) => LoginPage(),
-      fullscreenDialog: true,
-    );
-  }
-}
-
-class Crossroad extends StatelessWidget {
-  @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     home: LoginPage(),
-  //   );
-  // }
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseAuth.instance.onAuthStateChanged,
-      builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return LoadingPage();
-        }
-        if (!snapshot.hasData || snapshot.data == null) {
-          return LoginPage();
-        }
-        return HomePage();
-        // return HomePage();
-      },
+      title: 'Main',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Crossroad(
+        auth: Auth(),
+      ),
+      routes: routes,
     );
   }
 }

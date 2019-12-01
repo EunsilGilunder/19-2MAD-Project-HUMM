@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'auth.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -7,15 +6,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () {
-              signOut();
-              Navigator.pop(context);
-            },
-          ),
-        ],
+        actions: <Widget>[],
       ),
       body: Container(
         child: Center(
@@ -25,8 +16,9 @@ class ProfilePage extends StatelessWidget {
             children: <Widget>[
               ClipRect(
                 child: Image.network(
-                  imageUrl,
-                ),
+                    "https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2F%EA%B8%80%EC%93%B0%EA%B8%B0.png?alt=media&token=a162c03e-8b89-4050-86ed-c2cf1d41b40b"
+                    //image url from firestore database,
+                    ),
               ),
               SizedBox(height: 20),
               Divider(color: Colors.black),
@@ -40,7 +32,8 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               Text(
-                email,
+                "tomtom@tom.tom",
+                //email address stored in database,
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
