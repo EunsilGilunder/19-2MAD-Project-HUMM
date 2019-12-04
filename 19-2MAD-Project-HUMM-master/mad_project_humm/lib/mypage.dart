@@ -83,67 +83,29 @@ class _DetailPageState extends State<DetailPage> {
                       padding : EdgeInsets.fromLTRB(0,10,15,0),
                       child : Row(
                           children: <Widget>[
-                            VerticalDivider(),
+
                             SizedBox(
                               width : 200,
                               height : 60,
-                              child:
-                              TextField(
-                                  controller: _usernameController,
-                                  decoration: InputDecoration.collapsed(
-                                    hintText : '제목 입력',
-                                    hintStyle:
-                                    TextStyle(
-                                      fontSize : 30,
-                                      fontWeight:FontWeight.bold,
-                                    ),
-                                  ),
-                                  textAlign:TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize : 30,
-                                    fontWeight: FontWeight.bold,
-                                  )
-                              ),
+
 
                             ),
                           ]
                       )
-                  )
+                  ),
                 ]
             ),
             Divider(),
             Row(
                 children : <Widget> [
                   Container(
-                      padding : EdgeInsets.fromLTRB(0,10,15,0),
-                      child : Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width : 200,
-                              height :200,
-                              child:
-                              TextField(
-                                  controller: _passwordController,
-                                  decoration: InputDecoration.collapsed(
-                                    hintText : '내용 입력',
-                                    hintStyle:
-                                    TextStyle(
-                                      fontSize : 15,
-                                    ),
-                                  ),
-                                  textAlign:TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize : 15,
-                                  )
-                              ),
-
-                            ),
-                          ]
-                      )
-                  )
+                  ),
+        VerticalDivider(),
                 ]
             ),
+            Divider(),
           ],
+
         ),
       ),
     );

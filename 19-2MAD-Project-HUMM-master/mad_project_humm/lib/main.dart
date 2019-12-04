@@ -4,6 +4,8 @@ import 'loading.dart';
 import 'login.dart';
 import 'home.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'club.dart';
+import 'activity.dart';
 
 void main(){
   initializeDateFormatting().then((_) => runApp(MyApp()));}
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
         './login' : (context) => LoginScreen(),
         './main' : (context) => Main(),
         './mypage' :(context) => DetailPage(),
+        './club' : (context) => ClubPage(),
+        './act' : (context) => ActPage(),
       },
     );
   }

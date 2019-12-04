@@ -62,7 +62,8 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title : Text('Main Page'),
+        backgroundColor: Colors.white,
+        title : Center(child: Image.network('https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Flogo%2FHUMM_logo.png?alt=media&token=8e92cbfb-926d-4af1-9965-c5d7914e64b9')),
       ),
 
       drawer : Drawer(
@@ -116,13 +117,13 @@ class _MainState extends State<Main> {
               ),
               color: Colors.blueAccent,
             ),
-            ListTile(
-              title: Text('동아리 보기',
-              style:TextStyle(fontWeight:FontWeight.bold,
-              fontSize:15)),
-              onTap:(){
-                Navigator.pop(context);
-              }
+            GestureDetector(
+              onTap:()=>Navigator.pushNamed(context,'./club'),
+              child: ListTile(
+                title: Text('동아리 보기',
+                style:TextStyle(fontWeight:FontWeight.bold,
+                fontSize:15)),
+              ),
             ),
             ListTile(
                 title: Text('체험하기',
@@ -130,6 +131,7 @@ class _MainState extends State<Main> {
     fontSize:15)),
                 onTap:(){
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, './act');
                 }
             ),
             ListTile(
@@ -152,76 +154,76 @@ class _MainState extends State<Main> {
       ),
 
 
-      body: SafeArea(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding : EdgeInsets.all(10.0),
-                        child: Calendar(
-                            events: _events,
-                            onRangeSelected: (range) =>
-                                print("Range is ${range.from}, ${range.to}"),
-                            onDateSelected: (date) => _handleNewDate(date),
-                            isExpandable: true,
-                            showTodayIcon: true,
-                            eventDoneColor: Colors.green,
-                            eventColor: Colors.grey),
-                      ),
-                      _buildEventList(),
-                      Container(
-                        child:Text('모집중'),
-                      ),
-                      CarouselSlider(
-                        height:200,
-                        items:[1].map((i){
-                          return Builder(
-                              builder:(BuildContext context){
-                                return Container(
-                                    width:MediaQuery.of(context).size.width,
-                                    margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                    child : Stack(
-                                        children:<Widget>[
-                                          Image.network('https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Flogo%2FHUMM_logo.png?alt=media&token=8e92cbfb-926d-4af1-9965-c5d7914e64b9'),
-                                          Text('동아리 배너')
-                                        ]
+      body: ListView(
+        children: <Widget>[
+          Container(
+            padding : EdgeInsets.all(10.0),
+            child: Calendar(
+                events: _events,
+                onRangeSelected: (range) =>
+                    print("Range is ${range.from}, ${range.to}"),
+                onDateSelected: (date) => _handleNewDate(date),
+                isExpandable: true,
+                showTodayIcon: true,
+                eventDoneColor: Colors.green,
+                eventColor: Colors.grey),
+          ),
+          _buildEventList(),
 
-                                    )
-                                );
-                              }
-                          );
-                        }).toList(),
-                      ),
-                      Container(
-                        child:Text('동아리 체험활동')
-                      ),
-                      CarouselSlider(
-                        height:200,
-                        items:[1].map((i){
-                          return Builder(
-                            builder:(BuildContext context){
-                              return Container(
-                                width:MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                child : Stack(
-                                  children:<Widget>[
-                                    Image.network('https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Flogo%2FHUMM_logo.png?alt=media&token=8e92cbfb-926d-4af1-9965-c5d7914e64b9'),
-                                    Text('동아리 배너')
-                                  ]
+          Container(
+            child:Text('모집중'),
+          ),
+          CarouselSlider(
+            height:200,
+            items:[1].map((i){
+              return Builder(
+                  builder:(BuildContext context){
+                    return Container(
+                        width:MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        child : Stack(
+                            children:<Widget>[
+                              Image.network('https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Flogo%2FHUMM_logo.png?alt=media&token=8e92cbfb-926d-4af1-9965-c5d7914e64b9'),
+                              Text('동아리 배너')
+                            ]
 
-                                )
-                              );
-                            }
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-                ),
-            );
+                        )
+                    );
+                  }
+              );
+            }).toList(),
+          ),
+          Container(
+              child:Text('동아리 체험활동')
+          ),
+          CarouselSlider(
+            height:200,
+            items:[1].map((i){
+              return Builder(
+                  builder:(BuildContext context){
+                    return Container(
+                        width:MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        child : Stack(
+                            children:<Widget>[
+                              Image.network('https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Flogo%2FHUMM_logo.png?alt=media&token=8e92cbfb-926d-4af1-9965-c5d7914e64b9'),
+                              Text('동아리 배너')
+                            ]
+
+                        )
+                    );
+                  }
+              );
+            }).toList(),
+          ),
+        ],
+      )
+    );
   }
 
   Widget _buildEventList() {
-    return Expanded(
+    return SizedBox(
+      height : 130,
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) => Container(
           decoration: BoxDecoration(
