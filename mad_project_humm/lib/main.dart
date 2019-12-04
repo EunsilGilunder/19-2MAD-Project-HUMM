@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
     Post(
       user: eunsil,
       imageUrls: [
-
+          'https://www.allkpop.com/upload/2019/11/content/290449/1575020941-20191129-iu.jpg'
       ],
       likes: [
         Like(user: grootlover),
