@@ -17,7 +17,7 @@ final routes = {
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Main',
       theme: ThemeData(
@@ -28,3 +28,16 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     title: 'Main',
+  //     theme: ThemeData(
+  //       primarySwatch: Colors.blue,
+  //     ),
+  //     home: Crossroad(
+  //       auth: Auth(),
+  //     ),
+  //     routes: routes,
+  //   );
+  // }
+
