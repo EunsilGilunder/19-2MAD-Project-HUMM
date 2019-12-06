@@ -2,10 +2,29 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mad_project_humm/custom_widgets/form_submit_button.dart';
+import 'package:mad_project_humm/read_more_text.dart';
+import 'auth.dart';
+import 'crud.dart';
+import 'dart:async';
 
 final snapshots = [
   {
-    "profileurl": "https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2Femoji.webp?alt=media&token=b1463c4a-6a28-4063-a355-31610f89520e",
+    "profileurl":
+        "https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2Femoji.webp?alt=media&token=b1463c4a-6a28-4063-a355-31610f89520e",
+    "title": "펜통",
+    "intro": "소개글",
+    "content":
+        "일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보일시 및 상세 정보",
+    "coopSpec": "디자인",
+    "recruit": 5,
+    "startDate": "5/5",
+    "endDate": "5/6",
+    "photourl":
+        "https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2F%EA%B8%80%EC%93%B0%EA%B8%B0.png?alt=media&token=a162c03e-8b89-4050-86ed-c2cf1d41b40b",
+  },
+  {
+    "profileurl":
+        "https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2Femoji.webp?alt=media&token=b1463c4a-6a28-4063-a355-31610f89520e",
     "title": "펜통",
     "intro": "소개글",
     "content": "일시 및 상세 정보",
@@ -17,19 +36,8 @@ final snapshots = [
         "https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2F%EA%B8%80%EC%93%B0%EA%B8%B0.png?alt=media&token=a162c03e-8b89-4050-86ed-c2cf1d41b40b",
   },
   {
-    "profileurl": "https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2Femoji.webp?alt=media&token=b1463c4a-6a28-4063-a355-31610f89520e",
-    "title": "펜통",
-    "intro": "소개글",
-    "content": "일시 및 상세 정보",
-    "coopSpec": "디자인",
-    "recruit": 5,
-    "startDate": "5/5",
-    "endDate": "5/6",
-    "photourl":
-        "https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2F%EA%B8%80%EC%93%B0%EA%B8%B0.png?alt=media&token=a162c03e-8b89-4050-86ed-c2cf1d41b40b",
-  },
-  {
-    "profileurl": "https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2Femoji.webp?alt=media&token=b1463c4a-6a28-4063-a355-31610f89520e",
+    "profileurl":
+        "https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2Femoji.webp?alt=media&token=b1463c4a-6a28-4063-a355-31610f89520e",
     "title": "펜통",
     "intro": "소개글",
     "content": "일시 및 상세 정보",
@@ -88,53 +96,52 @@ class CoopDetail extends StatefulWidget {
 }
 
 enum CurrentIndex { one, two, three }
-
 class _CoopDetailState extends State<CoopDetail> {
+  String title; //= Coop.fromSnapshot(연동시..);
+  String uploader = displayName;
+  String date; //= selected date..
+
+  CrudMethod crudObj = CrudMethod();
   CurrentIndex currentIndex = CurrentIndex.one;
 
-  dynamic _displayDialog(BuildContext context) {
+  Future<bool> _displayDialog(BuildContext context) async {
     return showDialog(
         context: context,
-        builder: (context) {
+        barrierDismissible: false,
+        builder: (BuildContext context) {
           return AlertDialog(
             title: Text('예약 일자를 선택하라'),
             content: Column(
               children: <Widget>[
-                ListTile(
+                RadioListTile(
                   title: Text("9/18-19(수,목)"),
-                  leading: Radio(
-                    value: CurrentIndex.one,
-                    groupValue: currentIndex,
-                    onChanged: (CurrentIndex value) {
-                      setState(() {
-                        currentIndex = value;
-                      });
-                    },
-                  ),
+                  value: CurrentIndex.one,
+                  groupValue: currentIndex,
+                  onChanged: (CurrentIndex value) {
+                    setState(() {
+                      currentIndex = value;
+                    });
+                  },
                 ),
-                ListTile(
+                RadioListTile(
                   title: Text("9/23-24(월,화)"),
-                  leading: Radio(
-                    value: CurrentIndex.two,
-                    groupValue: currentIndex,
-                    onChanged: (CurrentIndex value) {
-                      setState(() {
-                        currentIndex = value;
-                      });
-                    },
-                  ),
+                  value: CurrentIndex.two,
+                  groupValue: currentIndex,
+                  onChanged: (CurrentIndex value) {
+                    setState(() {
+                      currentIndex = value;
+                    });
+                  },
                 ),
-                ListTile(
+                RadioListTile(
                   title: Text("9/25-26(수-목)"),
-                  leading: Radio(
-                    value: CurrentIndex.three,
-                    groupValue: currentIndex,
-                    onChanged: (CurrentIndex value) {
-                      setState(() {
-                        currentIndex = value;
-                      });
-                    },
-                  ),
+                  value: CurrentIndex.three,
+                  groupValue: currentIndex,
+                  onChanged: (CurrentIndex value) {
+                    setState(() {
+                      currentIndex = value;
+                    });
+                  },
                 ),
               ],
             ),
@@ -146,11 +153,39 @@ class _CoopDetailState extends State<CoopDetail> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/reserve');
+                  Navigator.of(context).pop();
+                  crudObj.addData({
+                    'reservedBy': uploader,
+                    'reserveDate': this.date,
+                  }).then((result) {
+                    dialogTrigger(context);
+                  }).catchError((e) {
+                    print(e);
+                  });
                 },
               ),
               FlatButton(
                 child: new Text('취소'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  Future<bool> dialogTrigger(BuildContext context) async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('예약 완료', style: TextStyle(fontSize: 10.0)),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('확인'),
+                textColor: Colors.black,
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -209,285 +244,93 @@ class _CoopDetailState extends State<CoopDetail> {
   Widget _buildListItem(BuildContext context, Map data) {
     final coop = Coop.fromMap(data);
 
-    return Padding(
+    return Center(
       key: ValueKey(coop.title),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+      child: Container(
+        child: Card(
+          margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Image.network(
-                'https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2F%EA%B8%80%EC%93%B0%EA%B8%B0.png?alt=media&token=a162c03e-8b89-4050-86ed-c2cf1d41b40b',
-                height: 200,
-                fit: BoxFit.fill,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Image.network(
-                        coop.profileurl,
-                        height: 50,
-                      ),
-                      Text('the face'),
-                    ],
+                  Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2F%EA%B8%80%EC%93%B0%EA%B8%B0.png?alt=media&token=a162c03e-8b89-4050-86ed-c2cf1d41b40b',
+                    height: 200,
+                    fit: BoxFit.fill,
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(coop.title,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      Text(coop.intro),
-                      Text(coop.content),
+                      Column(
+                        children: <Widget>[
+                          Image.network(
+                            coop.profileurl,
+                            height: 50,
+                          ),
+                          Text('face'),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Text(coop.title,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Text(coop.intro),
+                          Text("협동 분야: ${coop.coopSpec}"),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text("모집 인원: ${coop.recruit.toString()} 명"),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text("모집 기간: ${coop.startDate} - ${coop.endDate}"),
+                        ],
+                      ), //firebase 연동시 add variables
                     ],
                   ),
                 ],
               ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.all(32),
+                    child: ReadMoreText(
+                      coop.content,
+                      trimLines: 4,
+                      colorClickableText: Colors.pink,
+                      trimMode: TrimMode.Line,
+                      trimCollapsedText: '...Show more',
+                      trimExpandedText: ' show less',
+                      //   """${coop.content}""",
+                      //   maxLines: 4,
+                      //   softWrap: true,
+                    ),
+                  ),
+                  FormSubmitButton(
+                      onPressed: () {
+                        _displayDialog(context);
+                      },
+                      text: "참가 신청"),
+                  SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
             ],
           ),
-
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("협동 분야: ${coop.coopSpec}"),
-              SizedBox(
-                height: 10,
-              ),
-              Text("모집 인원: ${coop.recruit.toString()} 명"),
-              SizedBox(
-                height: 10,
-              ),
-              Text("모집 기간: ${coop.startDate} - ${coop.endDate}"),
-            ],
-          ), //firebase 연동시 add variables
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              SizedBox(
-                width: 150,
-              ),
-              FormSubmitButton(
-                  onPressed: () {
-                    _displayDialog(context);
-                  },
-                  text: "참가 신청"),
-            ],
-          ),
-          SizedBox(height: 50),
-          Divider(
-            color: Colors.black,
-            height: 20,
-          ),
-        ],
+        ),
       ),
     );
   }
 }
-
-// class CoopDetail extends StatefulWidget {
-//   CoopDetail({Key key}) : super(key: key);
-//   @override
-//   _CoopDetailState createState() => _CoopDetailState();
-// }
-
-// enum CurrentIndex { one, two, three }
-
-// class _CoopDetailState extends State<CoopDetail> {
-//   bool oneValue = false;
-//   bool twoValue = false;
-//   bool threeValue = false;
-
-//   CurrentIndex currentIndex = CurrentIndex.one;
-
-//   _displayDialog(BuildContext context) {
-//     return showDialog(
-//         context: context,
-//         builder: (context) {
-//           return AlertDialog(
-//             title: Text('예약 일자를 선택하라'),
-//             content: Column(
-//               children: <Widget>[
-//                 ListTile(
-//                   title: Text("9/18-19(수,목)"),
-//                   leading: Radio(
-//                     value: CurrentIndex.one,
-//                     groupValue: currentIndex,
-//                     onChanged: (CurrentIndex value) {
-//                       setState(() {
-//                         currentIndex = value;
-//                       });
-//                     },
-//                   ),
-//                 ),
-//                 ListTile(
-//                   title: Text("9/23-24(월,화)"),
-//                   leading: Radio(
-//                     value: CurrentIndex.two,
-//                     groupValue: currentIndex,
-//                     onChanged: (CurrentIndex value) {
-//                       setState(() {
-//                         currentIndex = value;
-//                       });
-//                     },
-//                   ),
-//                 ),
-//                 ListTile(
-//                   title: Text("9/25-26(수-목)"),
-//                   leading: Radio(
-//                     value: CurrentIndex.three,
-//                     groupValue: currentIndex,
-//                     onChanged: (CurrentIndex value) {
-//                       setState(() {
-//                         currentIndex = value;
-//                       });
-//                     },
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             actions: <Widget>[
-//               FlatButton(
-//                 color: Colors.blue,
-//                 child: Text(
-//                   '참가 신청',
-//                   style: TextStyle(color: Colors.white),
-//                 ),
-//                 onPressed: () {
-//                   Navigator.pushNamed(context, '/reserve');
-//                 },
-//               ),
-//               FlatButton(
-//                 child: new Text('취소'),
-//                 onPressed: () {
-//                   Navigator.of(context).pop();
-//                 },
-//               ),
-//             ],
-//           );
-//         });
-//   }
-
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         leading: IconButton(
-//             icon: Icon(
-//               Icons.arrow_back,
-//               color: Colors.black,
-//             ),
-//             onPressed: () {
-//               Navigator.pop(context);
-//             }),
-//         title: Row(
-//           children: <Widget>[
-//             Text('              '),
-//             Image.network(
-//               'https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Flogo%2FHUMM_logo.png?alt=media&token=8e92cbfb-926d-4af1-9965-c5d7914e64b9',
-//             ),
-//           ],
-//         ),
-//         actions: <Widget>[
-//           IconButton(
-//               icon: Icon(
-//                 Icons.face,
-//                 color: Colors.black,
-//               ),
-//               onPressed: () {
-//                 Navigator.pushNamed(context, '/profile');
-//               }),
-//         ],
-//       ),
-//       body: Column(
-//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//         children: <Widget>[
-//           Column(
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: <Widget>[
-//               Image.network(
-//                 'https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2F%EA%B8%80%EC%93%B0%EA%B8%B0.png?alt=media&token=a162c03e-8b89-4050-86ed-c2cf1d41b40b',
-//                 height: 200,
-//                 fit: BoxFit.fill,
-//               ),
-//               SizedBox(
-//                 height: 20,
-//               ),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                 children: <Widget>[
-//                   Column(
-//                     children: <Widget>[
-//                       Image.network(
-//                         'https://firebasestorage.googleapis.com/v0/b/project-humm.appspot.com/o/Image%2Fexample_image%2Femoji.webp?alt=media&token=b1463c4a-6a28-4063-a355-31610f89520e',
-//                         height: 50,
-//                       ),
-//                       Text('the face'),
-//                     ],
-//                   ),
-//                   Column(
-//                     mainAxisAlignment: MainAxisAlignment.start,
-//                     children: <Widget>[
-//                       Text("프로젝트",
-//                           style: TextStyle(
-//                             fontSize: 20,
-//                             fontWeight: FontWeight.bold,
-//                           )),
-//                       Text("소개글"),
-//                       Text("구체적 설명"),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-
-//           Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: <Widget>[
-//               Text("협동 분야: 이 것은 데이터베이스 연동이 필요하다"),
-//               SizedBox(
-//                 height: 10,
-//               ),
-//               Text("모집 인원: 가능하다"),
-//               SizedBox(
-//                 height: 10,
-//               ),
-//               Text("모집 기간: 가능하다"),
-//             ],
-//           ), //firebase 연동시 add variables
-
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//             children: <Widget>[
-//               IconButton(
-//                 icon: Icon(Icons.people),
-//                 onPressed: () {
-//                   Navigator.pushNamed(context, '/profile');
-//                 },
-//               ),
-//               SizedBox(
-//                 width: 150,
-//               ),
-//               FloatingActionButton(
-//                 onPressed: () {
-//                   _displayDialog(context);
-//                 },
-//                 child: Icon(Icons.schedule),
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
